@@ -5,7 +5,7 @@ on: [push]
 env:
  AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
  AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
- AZURE_LOCATION: 'westeurope'
+ AZURE_LOCATION: westeurope
 
 jobs:
   build-and-deploy:
@@ -30,4 +30,3 @@ jobs:
         template: ./main.bicep
         parameters: ./main.parameters.json rgLocation='${{ env.AZURE_LOCATION }}'
         failOnStdErr: false
-        deploymentMode: Complete
