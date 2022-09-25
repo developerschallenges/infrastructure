@@ -8,7 +8,7 @@ env:
  AZURE_LOCATION: westeurope
 
 jobs:
-  build-and-deploy:
+  arm-deploy:
     runs-on: ubuntu-latest
     steps:
 
@@ -21,8 +21,7 @@ jobs:
         creds: ${{ env.AZURE_CREDENTIALS }}
 
       # Deploy Bicep file
-    - name: deploy
-      uses: azure/arm-deploy@v1
+    - uses: azure/arm-deploy@v1
       with:
         scope: subscription
         region: ${{ env.AZURE_LOCATION }}
