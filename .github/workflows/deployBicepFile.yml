@@ -28,5 +28,5 @@ jobs:
         region: ${{ env.AZURE_LOCATION }}
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
         template: ./main.bicep
-        parameters: ./main.parameters.json rgLocation='${{ env.AZURE_LOCATION }}'
+        parameters: ./main.parameters.json rgLocation=${{ env.AZURE_LOCATION }}
         failOnStdErr: false
