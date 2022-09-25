@@ -17,7 +17,9 @@ jobs:
     - name: deploy
       uses: azure/arm-deploy@v1
       with:
+        scope: subscription
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         template: ./main.bicep
         parameters: ./main.parameters.json
         failOnStdErr: false
+        deploymentMode: Complete
