@@ -15,3 +15,11 @@ module acsModule 'acsModule.bicep' = {
     acsLocation: rgLocation
   }
 }
+
+module faModule 'faModule.bicep' = {
+  name: 'faModule'
+  scope: rg
+  params: {
+    faLocation: rgLocation
+  }
+}
