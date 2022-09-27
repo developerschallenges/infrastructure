@@ -32,6 +32,9 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   properties: {}
 }
 
+param searchServiceName string
+param searchApiKey string
+
 resource fa 'Microsoft.Web/sites@2022-03-01' = {
   name: faName
   location: faLocation
@@ -54,6 +57,18 @@ resource fa 'Microsoft.Web/sites@2022-03-01' = {
         {
           name: 'WEBSITE_NODE_DEFAULT_VERSION'
           value: '~16'
+        }
+        {
+          name: 'SearchServiceName'
+          value: searchServiceName
+        }
+        {
+          name: 'SearchIndexName'
+          value: 'developerschallenges2'
+        }
+        {
+          name: 'SearchApiKey'
+          value: searchApiKey
         }
       ]
     }

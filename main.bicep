@@ -21,5 +21,7 @@ module faModule 'faModule.bicep' = {
   scope: rg
   params: {
     faLocation: rgLocation
+    searchServiceName: acsModule.outputs.searchServiceName
+    searchApiKey: acsModule.outputs.queryKey
   }
 }
