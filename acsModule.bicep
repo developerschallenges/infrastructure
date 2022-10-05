@@ -1,4 +1,4 @@
-param acsName string = 'acs-developerschallenges2'
+param acsName string = 'acs-developerschallenges'
 param acsLocation string
 
 resource acs 'Microsoft.Search/searchServices@2021-04-01-preview' = {

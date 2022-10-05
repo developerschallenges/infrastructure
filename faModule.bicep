@@ -1,7 +1,7 @@
-param faName string = 'fa-developerschallenges2'
+param faName string = 'fa-developerschallenges'
 param faLocation string
 
-param saName string = 'sadeveloperschallenges2'
+param saName string = 'sadeveloperschallenges'
 
 @description('Storage Account type')
 @allowed([
@@ -20,7 +20,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   kind: 'Storage'
 }
 
-param aspName string = 'asp-developerschallenges2'
+param aspName string = 'asp-developerschallenges'
 
 resource hostingPlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   name: aspName
@@ -64,7 +64,7 @@ resource fa 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'SearchIndexName'
-          value: 'developerschallenges2'
+          value: 'developerschallenges'
         }
         {
           name: 'SearchApiKey'
