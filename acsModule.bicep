@@ -21,7 +21,9 @@ resource acsScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
     arguments: '-acsName ${acsName} -adminKey ${acs.listAdminKeys().primaryKey} -indexName ${indexName}'
     scriptContent: '''
       param([string] $acsName, [string] $adminKey, [string] $indexName)
-      curl -H "api-key: $adminKey" -H "Content-Type: application/json" -d '{ \"name\": \"$indexName\", \"fields\": [{ \"name\": \"id\", \"type\": \"Edm.String\", \"key\": true, \"retrievable\": true, \"filterable\": false, \"sortable\": false, \"facetable\": false, \"searchable\": false }], \"suggesters\": [ ], \"scoringProfiles\": [ ] }' -X POST https://$acsName.search.windows.net/indexes?api-version=2020-06-30
+      curl -H "api-key: $adminKey" -H "Content-Type: application/json" -d @"
+      { \"name\": \"$indexName\", \"fields\": [{ \"name\": \"id\", \"type\": \"Edm.String\", \"key\": true, \"retrievable\": true, \"filterable\": false, \"sortable\": false, \"facetable\": false, \"searchable\": false }], \"suggesters\": [ ], \"scoringProfiles\": [ ] }
+      "@ -X POST https://$acsName.search.windows.net/indexes?api-version=2020-06-30
     '''
   }
 }
