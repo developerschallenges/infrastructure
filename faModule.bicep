@@ -1,8 +1,7 @@
-param faName string = 'fa-developerschallenges'
+param faName string
 param faLocation string
 
-param saName string = 'sadeveloperschallenges'
-
+param saName string
 @description('Storage Account type')
 @allowed([
   'Standard_LRS'
@@ -10,6 +9,12 @@ param saName string = 'sadeveloperschallenges'
   'Standard_RAGRS'
 ])
 param saType string = 'Standard_LRS'
+
+param aspName string
+
+param searchServiceName string
+param searchIndexName string
+param searchApiKey string
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   name: saName
@@ -20,8 +25,6 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   kind: 'Storage'
 }
 
-param aspName string = 'asp-developerschallenges'
-
 resource hostingPlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   name: aspName
   location: faLocation
@@ -31,9 +34,6 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   }
   properties: {}
 }
-
-param searchServiceName string
-param searchApiKey string
 
 resource fa 'Microsoft.Web/sites@2022-03-01' = {
   name: faName
@@ -64,7 +64,7 @@ resource fa 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'SearchIndexName'
-          value: 'developerschallenges'
+          value: searchIndexName
         }
         {
           name: 'SearchApiKey'

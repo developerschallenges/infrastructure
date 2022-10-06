@@ -1,7 +1,13 @@
 targetScope = 'subscription'
 
-param rgName string
+param appName string
 param rgLocation string
+
+var rgName = 'rg-${appName}'
+var acsName = 'acs-${appName}'
+var faName = 'fa-${appName}'
+var saName = 'sa${appName}'
+var aspName = 'asp-${appName}'
 
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   name: rgName
@@ -12,7 +18,9 @@ module acsModule 'acsModule.bicep' = {
   name: 'acsModule'
   scope: rg
   params: {
+    acsName: acsName
     acsLocation: rgLocation
+    indexName: appName
   }
 }
 
@@ -20,8 +28,12 @@ module faModule 'faModule.bicep' = {
   name: 'faModule'
   scope: rg
   params: {
+    faName: faName
     faLocation: rgLocation
+    saName: saName
+    aspName: aspName
     searchServiceName: acsModule.outputs.searchServiceName
+    searchIndexName: acsModule.outputs.searchIndexName
     searchApiKey: acsModule.outputs.queryKey
   }
 }
