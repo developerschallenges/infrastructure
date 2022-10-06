@@ -1,6 +1,7 @@
 targetScope = 'subscription'
 
 param appName string
+param appUrl string
 param rgLocation string
 
 var rgName = 'rg-${appName}'
@@ -30,6 +31,7 @@ module faModule 'faModule.bicep' = {
   params: {
     faName: faName
     faLocation: rgLocation
+    faCors: appUrl
     saName: saName
     aspName: aspName
     searchServiceName: acsModule.outputs.searchServiceName

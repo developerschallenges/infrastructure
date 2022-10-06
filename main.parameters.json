@@ -5,6 +5,9 @@
       "appName": {
         "value": "developerschallenges"
       },
+      "appUrl": {
+        "value": "https://developerschallenges.com"
+      },
       "rgLocation": {
         "value": ""
       }

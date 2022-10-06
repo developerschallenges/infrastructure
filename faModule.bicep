@@ -1,5 +1,6 @@
 param faName string
 param faLocation string
+param faCors string
 
 param saName string
 @description('Storage Account type')
@@ -45,6 +46,11 @@ resource fa 'Microsoft.Web/sites@2022-03-01' = {
     siteConfig: {
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
+      cors: {
+        allowedOrigins: [
+          faCors
+        ]
+      }
       appSettings: [
         {
           name: 'AzureWebJobsStorage'

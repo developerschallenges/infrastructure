@@ -17,7 +17,7 @@ resource acsScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   properties: {
     azPowerShellVersion: '6.4'
     cleanupPreference: 'Always'
-    retentionInterval: 'P1D'
+    retentionInterval: 'PT1H'
     arguments: '-acsName ${acsName} -adminKey ${acs.listAdminKeys().primaryKey} -indexName ${indexName}'
     scriptContent: '''
 param([string] $acsName, [string] $adminKey, [string] $indexName)
