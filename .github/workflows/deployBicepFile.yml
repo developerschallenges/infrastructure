@@ -16,10 +16,10 @@ jobs:
     - uses: actions/checkout@master
 
     - run: |
-        keyId=curl \
+        keyId=$(curl \
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ secrets.PAT }}" \
-        https://api.github.com/orgs/developerschallenges/actions/secrets/public-key | jq -r '.key_id'
+        https://api.github.com/orgs/developerschallenges/actions/secrets/public-key | jq -r '.key_id')
         curl -X PUT \
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ secrets.PAT }}" \
