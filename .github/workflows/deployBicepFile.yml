@@ -32,7 +32,7 @@ jobs:
         failOnStdErr: false
 
     - run: |
-        acsAdminKey=""::add-mask::${{ steps.deploy.outputs.acsAdminKey }}""
+        acsAdminKey="::add-mask::${{ steps.deploy.outputs.acsAdminKey }}"
         keyId=$(curl \
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ secrets.PAT }}" \
