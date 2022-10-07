@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@master
 
     - run: |
-        curl-X PUT \
+        curl -X PUT \
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
         https://api.github.com/orgs/developerschallenges/actions/secrets/SECRET_NAME \
