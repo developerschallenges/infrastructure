@@ -16,11 +16,15 @@ jobs:
     - uses: actions/checkout@master
 
     - run: |
+        keyId=curl \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer ${{ secrets.PAT }}" \
+        https://api.github.com/orgs/developerschallenges/actions/secrets/public-key | jq -r '.key_id'
         curl -X PUT \
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ secrets.PAT }}" \
         https://api.github.com/orgs/developerschallenges/actions/secrets/SECRET_NAME \
-        -d '{"encrypted_value":"c2VjcmV0","key_id":"012345678912345678","visibility":"all"}' 
+        -d '{"encrypted_value":"c2VjcmV0","key_id":"$keyId","visibility":"all"}' 
 
       # Log into Azure
     # - uses: azure/login@v1
