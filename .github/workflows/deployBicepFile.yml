@@ -9,7 +9,6 @@ env:
 
 jobs:
   arm-deploy:
-    permissions: write-all
     runs-on: ubuntu-latest
     steps:
 
@@ -19,7 +18,7 @@ jobs:
     - run: |
         curl -X PUT \
         -H "Accept: application/vnd.github+json" \
-        -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+        -H "Authorization: Bearer ${{ secrets.PAT }}" \
         https://api.github.com/orgs/developerschallenges/actions/secrets/SECRET_NAME \
         -d '{"encrypted_value":"c2VjcmV0","visibility":"all"}' 
 
