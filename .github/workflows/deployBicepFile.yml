@@ -9,6 +9,7 @@ env:
 
 jobs:
   arm-deploy:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
 
