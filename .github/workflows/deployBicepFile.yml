@@ -31,7 +31,7 @@ jobs:
         parameters: ./main.parameters.json rgLocation=${{ env.AZURE_LOCATION }}
         failOnStdErr: false
       env:
-        ACS_ADMIN_KEY: ${{ steps.deploy.outputs.acsAdminKey }}
+        ACS_ADMIN_KEY: ${{ deploy.outputs.acsAdminKey }}
 
     - run: |
         keyId=$(curl \
