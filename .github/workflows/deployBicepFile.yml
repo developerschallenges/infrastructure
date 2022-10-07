@@ -24,7 +24,7 @@ jobs:
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ secrets.PAT }}" \
         https://api.github.com/orgs/developerschallenges/actions/secrets/SECRET_NAME \
-        -d '{"encrypted_value":"c2VjcmV0","'"key_id"'":"$keyId","visibility":"all"}' 
+        -d '{"encrypted_value":"c2VjcmV0","'"$key_id"'":"$keyId","visibility":"all"}' 
 
       # Log into Azure
     # - uses: azure/login@v1
