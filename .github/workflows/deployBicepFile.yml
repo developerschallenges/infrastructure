@@ -30,8 +30,6 @@ jobs:
         template: ./main.bicep
         parameters: ./main.parameters.json rgLocation=${{ env.AZURE_LOCATION }}
         failOnStdErr: false
-      env:
-        ACS_ADMIN_KEY: ${{ deploy.outputs.acsAdminKey }}
 
     - run: |
         keyId=$(curl \
@@ -42,4 +40,4 @@ jobs:
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ secrets.PAT }}" \
         https://api.github.com/orgs/developerschallenges/actions/secrets/ACS_ADMIN_KEY \
-        -d '{"encrypted_value":"'${{ env.ACS_ADMIN_KEY }}'","key_id":"'$keyId'","visibility":"all"}'
+        -d '{"encrypted_value":"'::add-mask::${{ steps.deploy.outputs.acsAdminKey }}'","key_id":"'$keyId'","visibility":"all"}'
