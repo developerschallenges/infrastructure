@@ -36,6 +36,8 @@ module faModule 'faModule.bicep' = {
     aspName: aspName
     searchServiceName: acsModule.outputs.searchServiceName
     searchIndexName: acsModule.outputs.searchIndexName
-    searchApiKey: acsModule.outputs.queryKey
+    searchApiKey: acsModule.outputs.searchQueryKey
   }
 }
+
+output acsAdminKey string = acsModule.outputs.searchAdminKey

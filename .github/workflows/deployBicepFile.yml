@@ -15,6 +15,22 @@ jobs:
       # Checkout code
     - uses: actions/checkout@master
 
+      # Log into Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ env.AZURE_CREDENTIALS }}
+
+      # Deploy Bicep file
+    - uses: azure/arm-deploy@v1
+      id: deploy
+      with:
+        scope: subscription
+        region: ${{ env.AZURE_LOCATION }}
+        subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
+        template: ./main.bicep
+        parameters: ./main.parameters.json rgLocation=${{ env.AZURE_LOCATION }}
+        failOnStdErr: false
+
     - run: |
         keyId=$(curl \
         -H "Accept: application/vnd.github+json" \
@@ -23,20 +39,5 @@ jobs:
         curl -X PUT \
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ secrets.PAT }}" \
-        https://api.github.com/orgs/developerschallenges/actions/secrets/SECRET_NAME \
-        -d '{"encrypted_value":"c2VjcmV0","key_id":"'$keyId'","visibility":"all"}'
-
-      # Log into Azure
-    # - uses: azure/login@v1
-    #   with:
-    #     creds: ${{ env.AZURE_CREDENTIALS }}
-
-      # Deploy Bicep file
-    # - uses: azure/arm-deploy@v1
-    #   with:
-    #     scope: subscription
-    #     region: ${{ env.AZURE_LOCATION }}
-    #     subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
-    #     template: ./main.bicep
-    #     parameters: ./main.parameters.json rgLocation=${{ env.AZURE_LOCATION }}
-    #     failOnStdErr: false
+        https://api.github.com/orgs/developerschallenges/actions/secrets/ACS_ADMIN_KEY \
+        -d '{"encrypted_value":"'${{ steps.deploy.outputs.acsAdminKey }}'","key_id":"'$keyId'","visibility":"all"}'
