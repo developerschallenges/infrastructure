@@ -40,9 +40,10 @@ resource acsScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
     retentionInterval: 'PT1H'
     arguments: '-githubSecretsPat ${githubSecretsPat} -acsAdminKey ${acs.listAdminKeys().primaryKey}'
     scriptContent: '''
+param([string] $githubSecretsPat, [string] $acsAdminKey)
 $keyId=(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $githubSecretsPat" https://api.github.com/orgs/developerschallenges/actions/secrets/public-key | ConvertFrom-Json).key_id
 curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $githubSecretsPat" https://api.github.com/orgs/developerschallenges/actions/secrets/ACS_ADMIN_KEY -d @"
-{\"encrypted_value\":\"$acsAdminKey\","key_id":\"$keyId\","visibility":"all"}'
+{\"encrypted_value\":\"$acsAdminKey\",\"key_id\":\"$keyId\",\"visibility\":\"all\"}
 "@
     '''
   }
