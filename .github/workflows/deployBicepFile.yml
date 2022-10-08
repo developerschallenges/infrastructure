@@ -28,17 +28,19 @@ jobs:
         region: ${{ env.AZURE_LOCATION }}
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
         template: ./main.bicep
-        parameters: ./main.parameters.json rgLocation=${{ env.AZURE_LOCATION }}
+        parameters: ./main.parameters.json rgLocation=${{ env.AZURE_LOCATION }} githubSecretsPat=${{ secrets.PAT }}
         failOnStdErr: false
 
-    - run: |
-        acsAdminKey="::add-mask::${{ steps.deploy.outputs.acsAdminKey }}"
-        keyId=$(curl \
-        -H "Accept: application/vnd.github+json" \
-        -H "Authorization: Bearer ${{ secrets.PAT }}" \
-        https://api.github.com/orgs/developerschallenges/actions/secrets/public-key | jq -r '.key_id')
-        curl -X PUT \
-        -H "Accept: application/vnd.github+json" \
-        -H "Authorization: Bearer ${{ secrets.PAT }}" \
-        https://api.github.com/orgs/developerschallenges/actions/secrets/ACS_ADMIN_KEY \
-        -d '{"encrypted_value":"'$acsAdminKey'","key_id":"'$keyId'","visibility":"all"}'
+    # - run: |
+    #     acsAdminKey=${{ env.ACS_ADMIN_KEY }}
+    #     keyId=$(curl \
+    #     -H "Accept: application/vnd.github+json" \
+    #     -H "Authorization: Bearer ${{ secrets.PAT }}" \
+    #     https://api.github.com/orgs/developerschallenges/actions/secrets/public-key | jq -r '.key_id')
+    #     curl -X PUT \
+    #     -H "Accept: application/vnd.github+json" \
+    #     -H "Authorization: Bearer ${{ secrets.PAT }}" \
+    #     https://api.github.com/orgs/developerschallenges/actions/secrets/ACS_ADMIN_KEY \
+    #     -d '{"encrypted_value":"'$acsAdminKey'","key_id":"'$keyId'","visibility":"all"}'
+    #   env:
+    #     ACS_ADMIN_KEY: ${{ steps.deploy.outputs.acsAdminKey }}

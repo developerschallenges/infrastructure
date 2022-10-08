@@ -3,6 +3,8 @@ targetScope = 'subscription'
 param appName string
 param appUrl string
 param rgLocation string
+@secure()
+param githubSecretsPat string
 
 var rgName = 'rg-${appName}'
 var acsName = 'acs-${appName}'
@@ -22,6 +24,7 @@ module acsModule 'acsModule.bicep' = {
     acsName: acsName
     acsLocation: rgLocation
     indexName: appName
+    githubSecretsPat: githubSecretsPat
   }
 }
 
@@ -40,4 +43,4 @@ module faModule 'faModule.bicep' = {
   }
 }
 
-output acsAdminKey string = acsModule.outputs.searchAdminKey
+// output acsAdminKey string = acsModule.outputs.searchAdminKey
