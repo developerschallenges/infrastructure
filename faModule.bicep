@@ -57,12 +57,20 @@ resource fa 'Microsoft.Web/sites@2022-03-01' = {
           value: 'DefaultEndpointsProtocol=https;AccountName=${saName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
         }
         {
+          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${saName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+        }
+        {
           name: 'FUNCTIONS_EXTENSION_VERSION'
           value: '~4'
         }
         {
           name: 'WEBSITE_NODE_DEFAULT_VERSION'
           value: '~16'
+        }
+        {
+          name: 'FUNCTIONS_WORKER_RUNTIME'
+          value: 'node'
         }
         {
           name: 'SearchServiceName'

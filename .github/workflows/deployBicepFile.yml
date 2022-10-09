@@ -28,8 +28,19 @@ jobs:
         region: ${{ env.AZURE_LOCATION }}
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
         template: ./main.bicep
-        parameters: ./main.parameters.json rgLocation=${{ env.AZURE_LOCATION }} githubSecretsPat=${{ secrets.PAT }}
+        parameters: ./main.parameters.json rgLocation=${{ env.AZURE_LOCATION }}
         failOnStdErr: false
+
+    #   # Deploy Bicep file
+    # - uses: azure/arm-deploy@v1
+    #   id: deploy
+    #   with:
+    #     scope: subscription
+    #     region: ${{ env.AZURE_LOCATION }}
+    #     subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
+    #     template: ./main.bicep
+    #     parameters: ./main.parameters.json rgLocation=${{ env.AZURE_LOCATION }} githubSecretsPat=${{ secrets.PAT }}
+    #     failOnStdErr: false
 
     # - run: |
     #     acsAdminKey=${{ env.ACS_ADMIN_KEY }}
