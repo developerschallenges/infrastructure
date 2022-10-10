@@ -3,18 +3,28 @@ targetScope = 'subscription'
 param appName string
 param appUrl string
 param rgLocation string
-// @secure()
-// param githubSecretsPat string
 
 var rgName = 'rg-${appName}'
 var acsName = 'acs-${appName}'
 var faName = 'fa-${appName}'
 var saName = 'sa${appName}'
 var aspName = 'asp-${appName}'
+var laName = 'la-${appName}'
+var aiName = 'ai-${appName}'
 
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   name: rgName
   location: rgLocation
+}
+
+module laModule 'laModule.bicep' = {
+  name: 'laModule'
+  scope: rg
+  params: {
+    laName: laName
+    laLocation: rgLocation
+    aiName: aiName
+  }
 }
 
 module acsModule 'acsModule.bicep' = {
@@ -24,7 +34,6 @@ module acsModule 'acsModule.bicep' = {
     acsName: acsName
     acsLocation: rgLocation
     indexName: appName
-    // githubSecretsPat: githubSecretsPat
   }
 }
 
@@ -40,7 +49,6 @@ module faModule 'faModule.bicep' = {
     searchServiceName: acsModule.outputs.searchServiceName
     searchIndexName: acsModule.outputs.searchIndexName
     searchApiKey: acsModule.outputs.searchQueryKey
+    aiInstrumentationKey: laModule.outputs.aiInstrumentationKey
   }
 }
-
-// output acsAdminKey string = acsModule.outputs.searchAdminKey

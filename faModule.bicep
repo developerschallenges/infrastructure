@@ -13,6 +13,8 @@ param saType string = 'Standard_LRS'
 
 param aspName string
 
+param aiInstrumentationKey string
+
 param searchServiceName string
 param searchIndexName string
 param searchApiKey string
@@ -61,6 +63,10 @@ resource fa 'Microsoft.Web/sites@2022-03-01' = {
           value: 'DefaultEndpointsProtocol=https;AccountName=${saName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
         }
         {
+          name: 'WEBSITE_CONTENTSHARE'
+          value: toLower(faName)
+        }
+        {
           name: 'FUNCTIONS_EXTENSION_VERSION'
           value: '~4'
         }
@@ -71,6 +77,10 @@ resource fa 'Microsoft.Web/sites@2022-03-01' = {
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
           value: 'node'
+        }
+        {
+          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+          value: aiInstrumentationKey
         }
         {
           name: 'SearchServiceName'
