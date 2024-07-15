@@ -2,7 +2,7 @@ param acsName string
 param acsLocation string
 param indexName string
 
-resource acs 'Microsoft.Search/searchServices@2021-04-01-preview' = {
+resource acs 'Microsoft.Search/searchServices@2023-11-01' = {
   name: acsName
   location: acsLocation
   sku: {

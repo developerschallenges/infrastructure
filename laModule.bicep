@@ -2,7 +2,7 @@ param laName string
 param laLocation string
 param aiName string
 
-resource la 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
+resource la 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   name: laName
   location: laLocation
 }

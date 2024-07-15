@@ -19,7 +19,7 @@ param searchServiceName string
 param searchIndexName string
 param searchApiKey string
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: saName
   location: faLocation
   sku: {
@@ -28,7 +28,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   kind: 'Storage'
 }
 
-resource hostingPlan 'Microsoft.Web/serverfarms@2022-03-01' = {
+resource hostingPlan 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: aspName
   location: faLocation
   sku: {
@@ -38,7 +38,7 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   properties: {}
 }
 
-resource fa 'Microsoft.Web/sites@2022-03-01' = {
+resource fa 'Microsoft.Web/sites@2023-12-01' = {
   name: faName
   location: faLocation
   kind: 'functionapp,linux'
@@ -72,7 +72,7 @@ resource fa 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'WEBSITE_NODE_DEFAULT_VERSION'
-          value: '~16'
+          value: '~20'
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
